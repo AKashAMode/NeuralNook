@@ -2,7 +2,10 @@ import mongoose from 'mongoose';
 import cors from 'cors';
 import express from 'express';
 import dotenv from 'dotenv';
+import jwt from 'jsonwebtoken';
+
 import {postLogin, postSignup } from "./controllers/user";
+import Blog from "./models/Blog.js";
 
 dotenv.config();
 
@@ -30,22 +33,46 @@ const connectDB = async () => {
 
 }
 
-app.get("/request-count", (req, res)=> {
-   res.json({viewCount});
-});
+const jwtChecks = (req, res, next) => {
+   req.user = null;
 
-app.use((req, res, next)=> {
-viewCount++;
-next();
-});
+   const { authorization } = req.headers;
 
 
-app.get('/api/test1', (req, res)=> {
-console.log("Actual Controller test1 called");
-   res.json({
-     message:"Test1 route reached"
-   })
-})
+   if(!authorization){
+      return res.status(400).json({ message: "Authorization token missing"});
+   }
+
+   try{
+
+      const token = authorization.split(" ")[1];
+      const decoded = jwt.verify(token, process.env.JWT_SECRET);
+      req.user = decoded;
+
+      next();
+   }catch(error){
+      return res.status(401).json({ message: "Invalid JWT Token"});
+   }
+};
+
+
+
+const increaseViewCount = async (req, res, next)=> {
+   const { slug } = req.params;
+ 
+   try{
+      const blog = await Blog.findOne({slug});
+      if(blog){
+         blog.viewCount += 1;
+         await blog.save();
+      }
+
+   }catch(error){
+      console.error("Error increasing view count:", error);
+   }
+
+   next();
+};
 
 
 
@@ -68,4 +95,5 @@ app.post("/login", postLogin);
 app.listen(PORT, ()=> {
 console.log(`server is running on port ${PORT}`);
 connectDB();
+
 });
