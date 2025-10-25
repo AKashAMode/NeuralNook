@@ -2,6 +2,7 @@ import mongoose from 'mongoose';
 import cors from 'cors';
 import express from 'express';
 import dotenv from 'dotenv';
+import {postLogin, postSignup } from "./controllers/user";
 
 dotenv.config();
 
@@ -55,6 +56,14 @@ app.get("/", (req, res)=> {
  });
 
 });
+
+
+
+
+app.post("/signup", postSignup);
+app.post("/login", postLogin);
+
+
 
 app.listen(PORT, ()=> {
 console.log(`server is running on port ${PORT}`);
