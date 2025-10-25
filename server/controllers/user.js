@@ -1,6 +1,6 @@
 import User from './../models/User.js';
 import jwt from 'jsonwebtoken';
-
+import md5 from 'md5';
 
 const postSign = async (req, res) => {
 
@@ -46,12 +46,16 @@ const postSign = async (req, res) => {
         });
      }
 
-     
+ const newUser = new User({name, email, password: md5(password)});
 
+  const savedUser = await newUser.save();
 
-
-
-}
+  res.json({
+    status:true,
+    message:"User registered successfully",
+    user: savedUser,
+  });
+};
 
 
 const postLogin = async (req, res) => {
@@ -64,8 +68,31 @@ const postLogin = async (req, res) => {
     });
   }
 
+  if(existingUser){
+    const token = jwt.sign(
+        {
+            id: existingUser._id,
+            email: existingUser.email,
+            name: existingUser.name,
+        },
+        process.env.JWT_SECRET,
+        {expiresIn: "1d" }
+    );
 
-}
+    res.json({
+        status:true,
+        message: "User logged in successfully",
+        user: existingUser,
+        token,
+    });
+    
+  }else{
+    return res.status(400).json({
+        status:false,
+        message: "Invalid email or password",
+    });
+  }
+};
 
 
 export {postSign, postLogin};
