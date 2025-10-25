@@ -12,6 +12,8 @@ app.use(cors());
 
 const PORT = 8080 || process.env.PORT;
 
+let viewCount = 0;
+
 //database connection
 const connectDB = async () => {
 
@@ -26,6 +28,24 @@ const connectDB = async () => {
    }
 
 }
+
+app.get("/request-count", (req, res)=> {
+   res.json({viewCount});
+});
+
+app.use((req, res, next)=> {
+viewCount++;
+next();
+});
+
+
+app.get('/api/test1', (req, res)=> {
+console.log("Actual Controller test1 called");
+   res.json({
+     message:"Test1 route reached"
+   })
+})
+
 
 
 app.get("/", (req, res)=> {
