@@ -2,7 +2,7 @@ import User from './../models/User.js';
 import jwt from 'jsonwebtoken';
 
 
-const postSign = (req, res) => {
+const postSign = async (req, res) => {
 
     const {name, email, password} = req.body;
 
@@ -38,8 +38,18 @@ const postSign = (req, res) => {
         });
     }
 
+    const existingUser = await User.findOne({email});
+     if(existingUser){
+        res.status(400).json({
+            status:false,
+            message:` User with email ${email} already exists`,
+        });
+     }
 
-    
+     
+
+
+
 
 }
 
