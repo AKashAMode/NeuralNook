@@ -4,8 +4,6 @@ import { Link } from "react-router";
 import {ToastContainer, toast} from 'react-toastify'
 
 
-
-
 function Login(){
 
     const [user, setUser] = useState({
