@@ -6,6 +6,7 @@ import jwt from 'jsonwebtoken';
 
 import {postLogin, postSign } from "./controllers/user.js";
 import Blog from "./models/Blog.js";
+import {postBlogs} from "./controllers/blog.js"
 
 dotenv.config();
 
@@ -58,6 +59,7 @@ const jwtChecks = (req, res, next) => {
 
 
 const increaseViewCount = async (req, res, next)=> {
+
    const { slug } = req.params;
  
    try{
@@ -89,6 +91,7 @@ app.get("/", (req, res)=> {
 
 app.post("/signup", postSign);
 app.post("/login", postLogin);
+app.post("/blogs", postBlogs)
 
 
 
