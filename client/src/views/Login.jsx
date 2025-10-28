@@ -1,6 +1,9 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { Link } from "react-router";
+import {ToastContainer, toast} from 'react-toastify'
+
+
 
 
 function Login(){
@@ -10,14 +13,23 @@ function Login(){
         password:"",
     });
 
+
     const loginUser = async () => {
 
-        const response = await axios.post("http://localhost:8080/login", user);
+        const response = await axios.post(`${import.meta.env.VITE_API_URL}/login`, user);
 
-        if(response?.data?.success){
-            localStorage.setItem("loggedUser", JSON.stringify(response.data.user));
+        if(response?.data?.status){
+            toast.success("🎉 Logged In Successfully");
+            localStorage.setItem("loggedInUser", JSON.stringify(response.data.user));
             localStorage.setItem("token", response.data.token);
+
+           setTimeout(()=> {
             window.location.href = "/";
+           }, 1500)
+
+  
+        }else{
+            toast.error(response.data.message || "Login Failed");
         }
     };
 
@@ -59,6 +71,7 @@ function Login(){
                 </Link>
             </p>
          </div>
+         <ToastContainer/>
         </div>
     )
 }

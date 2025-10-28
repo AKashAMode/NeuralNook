@@ -13,7 +13,7 @@ const postSign = async (req, res) => {
         });
     }
 
-    const emailValidationRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+4/;
+    const emailValidationRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const nameValidationRegex = /^[a-zA-Z ]+$/;
     const passwordValidationRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%?&]{8,}$/;
 
@@ -68,6 +68,12 @@ const postLogin = async (req, res) => {
     });
   }
 
+  const existingUser = await User.findOne({
+    email,
+    password:md5(password),
+  }).select("_id name email");
+  
+
   if(existingUser){
     const token = jwt.sign(
         {
@@ -87,6 +93,7 @@ const postLogin = async (req, res) => {
     });
     
   }else{
+
     return res.status(400).json({
         status:false,
         message: "Invalid email or password",

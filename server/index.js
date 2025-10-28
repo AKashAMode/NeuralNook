@@ -4,7 +4,7 @@ import express from 'express';
 import dotenv from 'dotenv';
 import jwt from 'jsonwebtoken';
 
-import {postLogin, postSignup } from "./controllers/user";
+import {postLogin, postSign } from "./controllers/user.js";
 import Blog from "./models/Blog.js";
 
 dotenv.config();
@@ -87,7 +87,7 @@ app.get("/", (req, res)=> {
 
 
 
-app.post("/signup", postSignup);
+app.post("/signup", postSign);
 app.post("/login", postLogin);
 
 
