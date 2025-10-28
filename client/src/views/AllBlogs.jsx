@@ -11,7 +11,11 @@ function AllBlogs(){
     }, [])
 
     return(
-        <div>all blog section</div>
+        <div>
+         <h2>all blogs </h2>
+         {user ? `Hello ${user.name}!` : 'welcome Guest!'}
+        </div>
+        
 
        )
 }
