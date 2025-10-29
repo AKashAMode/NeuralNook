@@ -4,6 +4,7 @@ import {getCurrentUser} from './../util';
 
 
 function AllBlogs(){
+    
     const [user, setUser] = useState(null);
 
     useEffect(()=> {

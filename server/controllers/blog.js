@@ -1,10 +1,9 @@
-import Blog from "../models/Blog";
+import Blog from "../models/Blog.js";
 
 
 const postBlogs  = async (req, res) => {
 
     const {title, category, content, author} = req.body;
-    const {user} = req;
 
 
     if(!title || !category ||  !content || !author){
@@ -18,12 +17,10 @@ const postBlogs  = async (req, res) => {
         title,
         category,
         content,
-        author:user?.id
+        author,
     });
 
     const savedBlog = await newBlog.save();
-
-    await savedBlog.save();
 
     res.status(201).json({
         status:true,
