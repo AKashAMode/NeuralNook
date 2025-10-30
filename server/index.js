@@ -6,7 +6,7 @@ import jwt from 'jsonwebtoken';
 
 import {postLogin, postSign } from "./controllers/user.js";
 import Blog from "./models/Blog.js";
-import {postBlogs} from "./controllers/blog.js"
+import {postBlogs, getBlogs} from "./controllers/blog.js"
 
 dotenv.config();
 
@@ -91,7 +91,8 @@ app.get("/", (req, res)=> {
 
 app.post("/signup", postSign);
 app.post("/login", postLogin);
-app.post("/blogs", postBlogs)
+app.post("/blogs", postBlogs);
+app.get("/blogs", getBlogs);
 
 
 
