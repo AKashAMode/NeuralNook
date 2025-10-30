@@ -20,7 +20,13 @@ const postBlogs  = async (req, res) => {
         author,
     });
 
+
+
     const savedBlog = await newBlog.save();
+
+    savedBlog.slug = `${title.toLowerCase.replace(/ /g, "-")}-${savedBlog._id}`;
+
+    await savedBlog.save();
 
     res.status(201).json({
         status:true,
