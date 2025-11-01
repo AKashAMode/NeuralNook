@@ -12,7 +12,8 @@ function BlogCard({_id, title, content, author,publishedAt, createdAt, updatedAt
                 {status}
               </span>
             ): null}
-            {title}</h2>
+            {title}
+            </h2>
 
           <div>
 
