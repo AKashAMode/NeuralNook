@@ -35,12 +35,17 @@ function BlogCard({_id, title, content, author,publishedAt, createdAt, updatedAt
 
 
 
-          <Link className="absolute text-white bg-gray-800 px-6 py-2 rounded-md absolute bottom-4 right-4 cursor-pointer " to={`/blog/${slug}`}>
+          {status == "published" ? (
+            <Link className="absolute text-white bg-gray-800 px-6 py-2 rounded-md absolute bottom-4 right-4 cursor-pointer " to={`/blog/${slug}`}>
             Read More
           </Link>
-
+          ) : (
+            <Link className="absolute text-white bg-gray-800 px-6 py-2 rounded-md absolute bottom-4 right-4 cursor-pointer " to={`/edit/${slug}`}>
+            Edit Blog
+          </Link>
+          )}
         </div>
-    )
+    );
 }
 
 export default BlogCard;
