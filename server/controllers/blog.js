@@ -23,6 +23,8 @@ const postBlogs  = async (req, res) => {
     });
    }
 
+   console.log(decodedToken);
+
 
     if(!title || !category ||  !content){
         return res.status(400).json({
@@ -110,6 +112,41 @@ const updateBlogs = async (req, res) => {
 
     const { slug } = req.params;
     const {title, category, content} = req.body;
+
+    const { authorization} = req.headers;
+
+    let decodedToken;
+
+
+   try{
+     decodedToken = jwt.verify(
+        authorization.split(" ")[1],
+        process.env.JWT_SECRET
+    );
+   }catch(error){
+    return res.status(401).json({
+        status:false,
+        message:"Token is Invalid"
+    });
+   }
+
+   console.log(decodedToken);
+
+   const existingBlog = await Blog.findOne({slug: slug});
+
+   if(!existingBlog){
+    return res.status(400).json({
+        status:false,
+        message:"Blog not found",
+    })
+   }
+
+   if(existingBlog.author.toString() != decodedToken.id){
+    return res.status(403).json({
+        status:false,
+        message:"Not Authorized to update this Blog",
+    });
+   }
 
     if(!title || !category || !content){
         res.status(400).json({
