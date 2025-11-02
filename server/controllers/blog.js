@@ -6,24 +6,7 @@ import Blog from "../models/Blog.js";
 const postBlogs  = async (req, res) => {
 
     const {title, category, content} = req.body;
-    const { authorization} = req.headers;
-
-    let decodedToken;
-
-
-   try{
-    decodedToken = jwt.verify(
-        authorization.split(" ")[1],
-        process.env.JWT_SECRET
-    );
-   }catch(error){
-    return res.status(401).json({
-        status:false,
-        message:"Token is Invalid"
-    });
-   }
-
-   console.log(decodedToken);
+   const { user } = req;
 
 
     if(!title || !category ||  !content){
@@ -37,7 +20,7 @@ const postBlogs  = async (req, res) => {
         title,
         category,
         content,
-        author:decodedToken?.id,
+        author:user?.id,
         slug: `temp-slug-${Date.now()}-${Math.random().toString()}`
     });
 
@@ -98,6 +81,23 @@ const getBlogForSlug = async (req, res) => {
 
 const patchPublishBlog = async (req, res) => {
     const { slug } = req.params;
+    const { user } = req;
+
+    const blog = await Blog.findOne({slug:slug});
+
+    if(!blog){
+        return res.status(404).json({
+            status:false,
+            message:"Blog not found"
+        });
+    }
+
+    if(blog.author.toString() != user?.id){
+        return res.status(403).json({
+            status:false,
+            message:"You are not authorized to publish this blog"
+        });
+    }
 
     await Blog.findOneAndUpdate({slug : slug}, {status: "published"});
 
@@ -112,25 +112,7 @@ const updateBlogs = async (req, res) => {
 
     const { slug } = req.params;
     const {title, category, content} = req.body;
-
-    const { authorization} = req.headers;
-
-    let decodedToken;
-
-
-   try{
-     decodedToken = jwt.verify(
-        authorization.split(" ")[1],
-        process.env.JWT_SECRET
-    );
-   }catch(error){
-    return res.status(401).json({
-        status:false,
-        message:"Token is Invalid"
-    });
-   }
-
-   console.log(decodedToken);
+    const {user} = req;
 
    const existingBlog = await Blog.findOne({slug: slug});
 
@@ -138,6 +120,13 @@ const updateBlogs = async (req, res) => {
     return res.status(400).json({
         status:false,
         message:"Blog not found",
+    })
+   }
+
+   if(!existingBlog.author.toString() != user?.id){
+    return res.status(403).json({
+        status:false,
+        message:"you are not authorized to update this blog"
     })
    }
 

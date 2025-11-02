@@ -35,23 +35,27 @@ const connectDB = async () => {
 }
 
 
-const increaseViewCount = async (req, res, next)=> {
+const jwtChecks = (req, res, next) => {
+  req.user = null;
 
-   const { slug } = req.params;
- 
-   try{
-      const blog = await Blog.findOne({slug});
-      if(blog){
-         blog.viewCount += 1;
-         await blog.save();
-      }
+  const { authorization } = req.headers;
 
-   }catch(error){
-      console.error("Error increasing view count:", error);
-   }
+  if(!authorization){
+   return res.status(400).json({
+      status:false,
+      message:"authorization tokens are missing",
+   });
+  }
 
+  try{
+   const token = authorization.split(" ")[1];
+   const decoded = jwt.verify(token, process.env.JWT_SECRET);
+   req.user = decoded;
    next();
-};
+  }catch(err){
+   return res.status(401).json({message: "Invalid Jwt Token"});
+  }
+}
 
 
 
@@ -68,11 +72,11 @@ app.get("/", (req, res)=> {
 
 app.post("/signup", postSign);
 app.post("/login", postLogin);
-app.post("/blogs", postBlogs);
+app.post("/blogs",jwtChecks, postBlogs);
 app.get("/blogs", getBlogs);
 app.get("/blogs/:slug", getBlogForSlug);
-app.patch("/blogs/:slug/publish", patchPublishBlog);
-app.put("/blogs/:slug", updateBlogs);
+app.patch("/blogs/:slug/publish",jwtChecks, patchPublishBlog);
+app.put("/blogs/:slug",jwtChecks, updateBlogs);
 
 
 
