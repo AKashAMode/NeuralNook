@@ -1,12 +1,30 @@
+import jwt from 'jsonwebtoken';
 import Blog from "../models/Blog.js";
+
 
 
 const postBlogs  = async (req, res) => {
 
-    const {title, category, content, author} = req.body;
+    const {title, category, content} = req.body;
+    const { authorization} = req.headers;
+
+    let decodedToken;
 
 
-    if(!title || !category ||  !content || !author){
+   try{
+    decodedToken = jwt.verify(
+        authorization.split(" ")[1],
+        process.env.JWT_SECRET
+    );
+   }catch(error){
+    return res.status(401).json({
+        status:false,
+        message:"Token is Invalid"
+    });
+   }
+
+
+    if(!title || !category ||  !content){
         return res.status(400).json({
             status:false,
             message: "All fields are required",
@@ -17,7 +35,7 @@ const postBlogs  = async (req, res) => {
         title,
         category,
         content,
-        author,
+        author:decodedToken?.id,
         slug: `temp-slug-${Date.now()}-${Math.random().toString()}`
     });
 
