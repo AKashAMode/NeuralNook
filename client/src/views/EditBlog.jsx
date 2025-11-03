@@ -34,11 +34,19 @@ function EditBlog(){
 
 
      const updateBlog = async ()  => {
+        try{
       const response = await axios.put(`${import.meta.env.VITE_API_URL}/blogs/${slug}`, {
         title,
         content,
         category,
-      });
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    
+    );
 
       if(response?.data?.status){
         toast.success("Blog saved successfully");
@@ -46,10 +54,20 @@ function EditBlog(){
           window.location.href= "/";
         }, 2000);
       }
+    }catch(err){
+      
+       toast.error(err?.response?.data?.message || "error updating blog");
+     }
      };
+     
 
      const publishBlog = async () => {
-      const response = await axios.patch(`${import.meta.env.VITE_API_URL}/blogs/${slug}/publish`);
+      const response = await axios.patch(`${import.meta.env.VITE_API_URL}/blogs/${slug}/publish`, {
+
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
 
       if(response?.data?.status){
         toast.success("Blog published Successfully");

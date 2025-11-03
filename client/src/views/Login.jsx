@@ -11,7 +11,6 @@ function Login(){
         password:"",
     });
 
-
     const loginUser = async () => {
 
         const response = await axios.post(`${import.meta.env.VITE_API_URL}/login`, user);
@@ -30,7 +29,6 @@ function Login(){
             toast.error(response.data.message || "Login Failed");
         }
     };
-
 
     return(
         <div>
@@ -71,7 +69,7 @@ function Login(){
          </div>
          <ToastContainer/>
         </div>
-    )
+    );
 }
 
 export default Login;

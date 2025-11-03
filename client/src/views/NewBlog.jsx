@@ -18,11 +18,16 @@ function NewBlog(){
 
 
      const saveBlog = async ()  => {
+      try{
       const response = await axios.post(`${import.meta.env.VITE_API_URL}/blogs`, {
         title,
         content,
         category,
         author:user?._id
+      }, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
       });
 
       if(response?.data?.status){
@@ -31,6 +36,10 @@ function NewBlog(){
           window.location.href= "/";
         }, 2000);
       }
+    }catch(err){
+      toast.error(err?.response?.data?.message || 'facing error in blog creation')
+     }
+
      };
 
 
