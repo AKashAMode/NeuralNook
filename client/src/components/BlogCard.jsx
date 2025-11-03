@@ -2,7 +2,7 @@
 
 import {Link} from 'react-router';
 
-function BlogCard({_id, title, content, author,publishedAt, createdAt, updatedAt, status, category, slug}){
+function BlogCard({_id, title, content, author,publishedAt, createdAt, updatedAt, status, category, slug, viewCount}){
 
     return(
         <div className="border p-4 m-4 rounded relative">
@@ -29,7 +29,10 @@ function BlogCard({_id, title, content, author,publishedAt, createdAt, updatedAt
             </div>
           </div>
           
-          <p className="text-sm mt-2">Published On: {new Date(publishedAt || updatedAt).toLocaleDateString()}</p>
+          <p className="text-sm mt-2">Published On: {new Date(publishedAt || updatedAt).toLocaleDateString()},
+            viewCount: {viewCount}
+          </p>
+
           <span className="absolute top-2 right-2 border rounded-md p-1 text-gray-700 font-semibold px-2 py-1" >
             {category}
           </span>

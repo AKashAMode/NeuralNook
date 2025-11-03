@@ -1,17 +1,16 @@
 import MarkdownEditor from "@uiw/react-markdown-editor";
 import { useEffect, useState } from "react";
 import { BLOG_CATEGORIES } from './../constants';
-import { getCurrentUser } from "../util";
 import {ToastContainer, toast} from 'react-toastify';
 import axios from 'axios';
 import { useParams } from "react-router";
+import Navbar from "../components/Navbar";
 
 
 function EditBlog(){
     const [content, setContent] = useState("");
     const [title, setTitle] = useState("");
     const [category, setCategory] = useState(BLOG_CATEGORIES[0]);
-    const [user, setUser] = useState(null);
     const { slug } = useParams();
 
     const loadBlog =  async () => {
@@ -28,7 +27,6 @@ function EditBlog(){
 
     useEffect(()=> {
         document.documentElement.setAttribute("data-color-mode", "light");
-        setUser(getCurrentUser);
         loadBlog();
     }, []);
 
@@ -62,7 +60,7 @@ function EditBlog(){
      
 
      const publishBlog = async () => {
-      const response = await axios.patch(`${import.meta.env.VITE_API_URL}/blogs/${slug}/publish`, {
+      const response = await axios.patch(`${import.meta.env.VITE_API_URL}/blogs/${slug}/publish`,{}, {
 
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -80,7 +78,7 @@ function EditBlog(){
 
     return(
         <div className="container mx-auto p-5">
-
+          <Navbar/>
           <h1>New Blog</h1>
 
           <input type="text"

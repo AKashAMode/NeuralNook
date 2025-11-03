@@ -4,6 +4,7 @@ import { BLOG_CATEGORIES } from './../constants';
 import { getCurrentUser } from "../util";
 import {ToastContainer, toast} from 'react-toastify';
 import axios from 'axios';
+import Navbar from './../components/Navbar'
 
 function NewBlog(){
     const [content, setContent] = useState("");
@@ -45,7 +46,7 @@ function NewBlog(){
 
     return(
         <div className="container mx-auto p-5">
-
+          <Navbar/>
           <h1>New Blog</h1>
 
           <input type="text"

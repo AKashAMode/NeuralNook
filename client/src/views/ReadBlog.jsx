@@ -3,6 +3,8 @@ import { useState } from "react";
 import axios from 'axios';
 import { useParams } from "react-router";
 import MarkdownEditor from "@uiw/react-markdown-editor";
+import Navbar from "../components/Navbar";
+
 
 function ReadBlog(){
     const { slug } = useParams();
@@ -24,10 +26,12 @@ function ReadBlog(){
     return(
 
         <div className="container p-4 mx-auto">
-        <h1 className="text-2xl font-bold md-4">{blog.title}</h1>
+        <Navbar/>
 
+        <h1 className="text-2xl font-bold md-4">{blog.title}</h1>
         <p>Published On: {" "}
-            {new Date(blog.publishedAt || blog.updatedAt).toLocaleDateString()}
+            {new Date(blog.publishedAt || blog.updatedAt).toLocaleDateString()},
+            Read By: {blog.viewCount} people
         </p>
         
         <div className="flex items-center md-4">

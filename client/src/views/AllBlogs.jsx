@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import {getCurrentUser} from './../util';
 import axios from 'axios';
 import BlogCard from './../components/BlogCard'
-
+import Navbar from './../components/Navbar';
 
 
 function AllBlogs(){
@@ -24,14 +24,10 @@ function AllBlogs(){
 
     return(
         <div>
-         <h2>all blogs </h2>
-         {user ? `Hello ${user.name}!` : 'welcome Guest!'}
-
-
-
+         <Navbar/>
          <div>
             {blogs.map((blog)=> {
-                const {_id, title, content, author, publishedAt, createdAt, updatedAt, status, category, slug} = blog;
+                const {_id, title, content, author, publishedAt, createdAt, updatedAt, status, category, slug, viewCount} = blog;
                 return <BlogCard 
                 key={_id} 
                 title={title} 
@@ -43,6 +39,7 @@ function AllBlogs(){
                 status={status}
                 category={category}
                 slug={slug}
+                viewCount={viewCount}
                 />
             })}
          </div>

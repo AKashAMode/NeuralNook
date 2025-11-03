@@ -58,6 +58,26 @@ const jwtChecks = (req, res, next) => {
 }
 
 
+const increaseViewCount = async (req, res, next) => {
+
+   const {slug} = req.params;
+  
+   try{
+      const blog = await Blog.findOne({slug});
+      if(blog){
+         blog.viewCount += 1;
+         await blog.save();
+      }
+
+   }catch(err){
+      console.log("error increasing view count", err);
+   }
+   next();
+
+
+}
+
+
 
 app.get("/", (req, res)=> {
  res.json({
@@ -74,7 +94,7 @@ app.post("/signup", postSign);
 app.post("/login", postLogin);
 app.post("/blogs",jwtChecks, postBlogs);
 app.get("/blogs", getBlogs);
-app.get("/blogs/:slug", getBlogForSlug);
+app.get("/blogs/:slug", increaseViewCount, getBlogForSlug);
 app.patch("/blogs/:slug/publish",jwtChecks, patchPublishBlog);
 app.put("/blogs/:slug",jwtChecks, updateBlogs);
 
