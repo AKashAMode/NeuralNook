@@ -15,6 +15,6 @@ const userCommentSchema = new Schema(
 );
 
 
-const Comment = ("Comment", userCommentSchema);
+const Comment = model("Comment", userCommentSchema);
 
 export default Comment;

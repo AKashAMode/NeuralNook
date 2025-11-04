@@ -5,7 +5,7 @@ import {Link} from 'react-router';
 function BlogCard({_id, title, content, author,publishedAt, createdAt, updatedAt, status, category, slug, viewCount}){
 
     return(
-        <div className="border p-4 m-4 rounded relative">
+        <div className=" bg-white-50 p-4 m-4 rounded relative bg-gray-200">
           <h2>
             {status != "published" ? (
               <span className="text-yellow-700 text-xs font-semibold px-2 py-1 rounded-md mr-4">

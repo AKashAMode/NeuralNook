@@ -9,6 +9,7 @@ import Navbar from "../components/Navbar";
 function ReadBlog(){
     const { slug } = useParams();
     const [blog, setBlog] = useState({});
+    const [comment, setComment] = useState({});
 
  
     const fetchBlog = async () => {
@@ -25,6 +26,7 @@ function ReadBlog(){
 
     return(
          <div>
+
          <Navbar/>
         <div className="container p-4 mx-auto">
         <h1 className="text-2xl font-bold md-4">{blog.title}</h1>
@@ -35,7 +37,7 @@ function ReadBlog(){
         
         <div className="flex items-center md-4">
             <span>
-                {blog.category}
+                <span className="px-2 py-1 rounded-4xl bg-blue-500 text-white">{blog.category}</span>
                 </span>
 
                 <div className="flex items-center gap-4 my-2 ml-14">
@@ -51,7 +53,15 @@ function ReadBlog(){
 
         </div>
           <MarkdownEditor.Markdown source={blog.content}/>
-        </div>
+         </div>
+         <div className="py-4 px-4">
+            <h5 className="p-1">Comment:</h5>
+            <textarea name="textarea" className="p-2 w-[50%] outline-none"></textarea>
+            <div>
+                <button className="px-2 mx-2  rounded-xl bg-gray-400 cursor-pointer ">cancel</button>
+                <button className="px-2 mx-2  rounded-xl bg-blue-400 cursor-pointer">respond</button>
+            </div>
+         </div>
         </div>
     );
 }
