@@ -45,8 +45,10 @@ function NewBlog(){
 
 
     return(
-        <div className="container mx-auto p-5">
+        <div>
           <Navbar/>
+        <div className="container mx-auto p-5">
+          
           <h1>New Blog</h1>
 
           <input type="text"
@@ -82,6 +84,7 @@ function NewBlog(){
             Save Blog
             </button>
             <ToastContainer/>
+        </div>
         </div>
     )
 }

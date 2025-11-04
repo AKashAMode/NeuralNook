@@ -77,8 +77,11 @@ function EditBlog(){
 
 
     return(
+      <div>
+        <Navbar/>
+     
         <div className="container mx-auto p-5">
-          <Navbar/>
+          
           <h1>New Blog</h1>
 
           <input type="text"
@@ -121,6 +124,7 @@ function EditBlog(){
             </button>
             <ToastContainer/>
         </div>
+         </div>
     )
 }
 

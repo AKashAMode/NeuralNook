@@ -24,10 +24,9 @@ function ReadBlog(){
     }, [])
 
     return(
-
+         <div>
+         <Navbar/>
         <div className="container p-4 mx-auto">
-        <Navbar/>
-
         <h1 className="text-2xl font-bold md-4">{blog.title}</h1>
         <p>Published On: {" "}
             {new Date(blog.publishedAt || blog.updatedAt).toLocaleDateString()},
@@ -52,6 +51,7 @@ function ReadBlog(){
 
         </div>
           <MarkdownEditor.Markdown source={blog.content}/>
+        </div>
         </div>
     );
 }

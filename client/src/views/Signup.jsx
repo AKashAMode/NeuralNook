@@ -13,9 +13,8 @@ function Signup(){
    const signupUser = async () => {
 
     const response = await axios.post(
-        `${import.meta.env.VITE_API_URL}/signup`,user
+        `${import.meta.env.VITE_API_URL}/signup`, user
     );
-
     console.log(response.data);
    }
 
