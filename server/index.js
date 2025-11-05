@@ -6,7 +6,8 @@ import jwt from 'jsonwebtoken';
 
 import {postLogin, postSign } from "./controllers/user.js";
 import Blog from "./models/Blog.js";
-import {postBlogs, getBlogs, getBlogForSlug, patchPublishBlog, updateBlogs} from "./controllers/blog.js"
+import {postBlogs, getBlogs, getBlogForSlug, patchPublishBlog, updateBlogs} from "./controllers/blog.js";
+import {postComments} from "./controllers/comments.js";
 
 dotenv.config();
 
@@ -97,7 +98,7 @@ app.get("/blogs", getBlogs);
 app.get("/blogs/:slug", increaseViewCount, getBlogForSlug);
 app.patch("/blogs/:slug/publish",jwtChecks, patchPublishBlog);
 app.put("/blogs/:slug",jwtChecks, updateBlogs);
-
+app.post("/blogs/:blogId/comments", jwtChecks , postComments)
 
 
 app.listen(PORT, ()=> {
