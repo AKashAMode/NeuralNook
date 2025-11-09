@@ -83,16 +83,16 @@ Backend → http://localhost:5000
 ![Home Page](./client/src/asset/home.png)
 
 🔐 Login / Register Page
-![Login Page](./client/src/asset/login.png)
+![Login Page](./screenshots/login.png)
 
 📝 Create Blog Page
-![Create Blog Page](./client/src/asset/newblog.png)
+![Create Blog Page](./screenshots/newblog.png)
 
 📖 Blog View Page
-![Blog View Page](./client/src/asset/readblog.png)
+![Blog View Page](./screenshots/readblog.png)
 
 💬 Comment Section
-![Comment Section Page](./client/src/asset/comment.png)
+![Comment Section Page](./screenshots/comment.png)
 
 📂 Folder Structure
 blogging-website/
