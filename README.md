@@ -83,8 +83,7 @@ Backend → http://localhost:5000
 ![Home Page](./client/src/asset/home.png)
 
 🔐 Login / Register Page
-![Login Page](https://github.com/AKashAMode/NeuralNook/blob/c4ab4d6411aa5cc7056ff42bbca8175be7dbf2ab/screenshots/login.png)
-
+![Login Page](./screenshots/login.png)
 
 📝 Create Blog Page
 ![Create Blog Page](./screenshots/newblog.png)
