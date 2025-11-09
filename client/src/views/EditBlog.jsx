@@ -111,13 +111,13 @@ function EditBlog(){
           height="500px"
           />
 
-          <button className="text-white bg-blue-700 px-5 py-2 mt-5 rounded cursor-pointer"
+          <button className="text-white bg-blue-700 px-5 py-2 mt-5 rounded cursor-pointer mx-2"
           onClick={updateBlog}
           >
             Update Blog
             </button>
 
-            <button className="text-white bg-blue-700 px-5 py-2 mt-5 rounded cursor-pointer"
+            <button className="text-white bg-blue-700 px-5 py-2 mt-5 rounded cursor-pointer mx-2"
             onClick={publishBlog}
           >
              Publish

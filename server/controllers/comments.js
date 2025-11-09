@@ -49,4 +49,28 @@ const postComments = async (req, res) => {
 
 }
 
-export {postComments};
+
+
+const getComments = async (req, res) => {
+
+    const {blogId} = req.params;
+
+    try{
+
+        const comments = await Comment.find({blog:blogId}).populate("user", "_id name email");
+
+    return res.status(200).json({
+        status:true,
+        message:"comment fetched successfully",
+        data: comments
+    });
+    }catch(err){
+        res.status(404).json({
+            status:false,
+            message:"error in fetching comment"
+        });
+    }
+
+}
+
+export {postComments, getComments};
