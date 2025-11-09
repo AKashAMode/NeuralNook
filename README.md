@@ -1,4 +1,4 @@
-# 📝 Blogging Website
+# 📝 NeuralNook..
 
 A **full-stack blogging platform** built using **ReactJS**, **TailwindCSS**, **NodeJS**, **ExpressJS**, and **MongoDB**.  
 This project allows users to **create, read, update, and comment on blogs** with secure **JWT authentication** and **MD5 encryption**.
@@ -80,14 +80,19 @@ Frontend → http://localhost:5173
 Backend → http://localhost:5000
 
 🏠 Home Page
+![Home Page](./client/src/asset/home.png)
 
 🔐 Login / Register Page
+![Login Page](./client/src/asset/login.png)
 
 📝 Create Blog Page
+![Create Blog Page](./client/src/asset/newblog.png)
 
 📖 Blog View Page
+![Blog View Page](./client/src/asset/readblog.png)
 
 💬 Comment Section
+![Comment Section Page](./client/src/asset/comment.png)
 
 📂 Folder Structure
 blogging-website/
@@ -104,7 +109,7 @@ blogging-website/
 │   ├── server.js
 │   └── package.json
 │
-├── screenshots/            # Folder for uploading images used in README
+├
 │
 └── README.md
 
