@@ -15,7 +15,7 @@ useEffect(()=> {
 
     return(
 
-    <div className="bg-blue-800 px-8 py-4 flex items-center justify-between fixed top-0 left-0 w-full z-50 shadow-md mb-5">
+    <div className="bg-blue-800 px-8 py-4 flex items-center justify-between w-full z-50 shadow-md mb-5">
     <h2 className="text-white text-2xl font-black tracking-wide font-sans">
     <span className="font-bold">NEURAL</span>NOOK<span className="text-blue-300">.</span>
   </h2>

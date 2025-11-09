@@ -6,7 +6,7 @@ function BlogCard({_id, title, content, author,publishedAt, createdAt, updatedAt
 
     return(
       
-        <div className=" bg-white-50 p-4 m-4 rounded relative bg-gray-300">
+        <div className="bg-white shadow-lg border border-gray-200 p-4 m-4 rounded relative">
           <h2 className='font-bold'>
             {status != "published" ? (
               <span className="text-yellow-700 text-xs font-semibold px-2 py-1 rounded-md mr-4">
@@ -34,7 +34,7 @@ function BlogCard({_id, title, content, author,publishedAt, createdAt, updatedAt
             viewCount: {viewCount}
           </p>
 
-          <span className="absolute top-2 right-2 border-none bg-white rounded-md p-1 text-gray-700 font-semibold px-2 py-1" >
+          <span className="absolute top-2 right-2 border bg-white rounded-md p-1 text-gray-700 font-semibold px-2 py-1" >
             {category}
           </span>
 
